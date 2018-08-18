@@ -1,5 +1,5 @@
 Paclet[
-	Name -> "WaifuX",
+	Name -> "Waifu",
 	Version -> "0.0.1",
 	Extensions -> {
 		
@@ -9,7 +9,7 @@ Paclet[
 			
 			"Root" -> ".",
 			
-			"Context" -> {"WaifuX`"}
+			"Context" -> {"Waifu`"}
 			
 		}
 		
