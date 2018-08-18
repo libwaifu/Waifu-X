@@ -1,4 +1,3 @@
-
 file = URLExecute@NeuralNetworks`Private`NetModel`$NetModelIndexURL
 
 NeuralNetworks`Private`NetModel`AdditionalIndex
