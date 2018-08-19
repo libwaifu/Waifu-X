@@ -1,6 +1,7 @@
 $WaifuDirectory::usage = "WaifuX 的安装路径.";
 $WaifuData::usage = "WaifuX 的数据存放位置.";
 $WaifuResourcesList::usage = "WaifuX 的远程资源映射表";
+$WaifuModelLoader::usage = "WaifuX 的资源加载器.";
 Begin["`Directories`"];
 $WaifuDirectory = DirectoryName[FindFile["Waifu`Kernel`"], 2];
 $WaifuData = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "WaifuX"}];
@@ -10,8 +11,6 @@ $WaifuResourcesList = <|
 		"Local" -> FileNameJoin[{$WaifuData, "Models", "Waifu-VDSR.WMLF"}]
 	|>
 |>;
-
-
 downloadProgress[manifest_][event_] := manifest = <|manifest, event["Task"] -> event|>;
 downloadFinished[manifest_][event_] := NotebookDelete /@ NotebookFind[SelectedNotebook[], "Print", All, CellStyle];
 downloadStart[manifest_][src_, dest_] := URLDownloadSubmit[
@@ -38,19 +37,22 @@ downloadVisualize[manifest_] := If[
 		#FractionComplete
 	]&[First@Values[manifest]]
 ];
-
-
-(*Todo:local resource check*)
-$WaifuResourcesCheck[name_] := (
+$WaifuModelLoader::lost = "`1` 模型加载失败.";
+$WaifuModelLoader[name_] := If[
+	FileExistsQ@$WaifuResourcesList[name, "Local"],
+	Import[FileExistsQ@$WaifuResourcesList[name, "Local"]],
 	manifest = <||>;
 	downloadStart[manifest][$WaifuResourcesList[name, "Remote"], $WaifuResourcesList[name, "Local"]];
 	Print@Dynamic@downloadVisualize[manifest];
-);
-
-
+	Message[$WaifuModelLoader::lost, name];Return[$Failed]
+];
+Quiet[CreateDirectory/@{
+	$WaifuData,
+	FileNameJoin[{$WaifuData, "Models"}]
+}];
 SetAttributes[{downloadProgress, downloadFinished, downloadStart, downloadVisualize}, HoldFirst];
 SetAttributes[
-	{$WaifuResourcesList},
+	{$WaifuResourcesList, $WaifuModelLoader},
 	{Protected, ReadProtected}
 ];
 End[];
