@@ -1,3 +1,3 @@
 # Waifu:X
 
-> ©Copyright by **Creative Commons — Attribution 4.0 International — BY+NA+NC**.
+> ©Copyright by **Mozilla Public License Version 2.0**.
