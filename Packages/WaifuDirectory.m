@@ -43,6 +43,10 @@ $WaifuResourcesList = <|
 	"Waifu-VDSR" -> <|
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-VDSR.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Models", "Waifu-VDSR.WMLF"}]
+	|>,
+	"Waifu-LapSRN" -> <|
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Models", "Waifu-LapSRN2.WMLF"}]
 	|>
 |>;
 

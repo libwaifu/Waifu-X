@@ -8,8 +8,7 @@ module.exports = {
 		}
 	},
 	head: [
-		['link', {rel: 'icon', href: '/favicon.png'}],
-		['link', {rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css'}]
+		['link', {rel: 'icon', href: '/favicon.png'}]
 	],
 	themeConfig: {
 		repo: 'Moe-Net/WaifuX',
@@ -27,13 +26,20 @@ module.exports = {
 					'/Start/Editor.md',
 					'/Start/EditorAdv.md'
 				]
+			},
+			{
+				title: 'Waifu-SR',
+				children: [
+					'/WaifuSR/'
+				]
+			},
+			{
+				title: 'Waifu-SY',
+				children: [
+					'/WaifuSY/'
+				]
 			}
 		]
 	},
-	serviceWorker: true,
-	markdown: {
-		config: md => {
-			md.use(require("markdown-it-katex"));
-		}
-	}
+	serviceWorker: true
 };
