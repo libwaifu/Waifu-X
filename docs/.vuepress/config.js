@@ -21,22 +21,19 @@ module.exports = {
 			{
 				title: '开发文档',
 				children: [
-					'/Start/',
-					'/Start/Developer.md',
-					'/Start/Editor.md',
-					'/Start/EditorAdv.md'
+					'/Start/'
 				]
 			},
 			{
 				title: 'Waifu-SR',
 				children: [
-					'/WaifuSR/'
+					'/Super-Revolution/'
 				]
 			},
 			{
 				title: 'Waifu-SY',
 				children: [
-					'/WaifuSY/'
+					'/Shi-Yun/'
 				]
 			}
 		]

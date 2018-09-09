@@ -39,11 +39,14 @@ WaifuSR = "";
 
 (* ::Subsubsection:: *)
 (*功能块 2*)
-VDSR := $WaifuModelLoader[VDSR, "Waifu-VDSR.WMLF"];
 rgbMatrix = {{0.257, 0.504, 0.098}, {-0.148, -0.291, 0.439}, {0.439, -0.368, -0.071}};
 rgbMatrixT = {{1.164, 0., 1.596}, {1.164, -0.392, -0.813}, {1.164, 2.017, 0.}};
 WaifuVDSR[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	{covImg, ycbcr, channels, netResize, adjust},
+	If[
+		MissingQ[VDSR = Ready[$Waifus["Waifu-VDSR", "Remote"], $Waifus["Waifu-VDSR", "Local"]]],
+		Return[Missing[NotAvailable]]
+	]
 	covImg = ImageResize[img, Scaled[zoom], Resampling -> "Cubic"];
 	ycbcr = ImageApply[rgbMatrix.# + {0.063, 0.502, 0.502}&, covImg];
 	netResize = NetReplacePart[VDSR,
