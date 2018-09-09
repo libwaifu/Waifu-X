@@ -19,7 +19,7 @@ module.exports = {
 		},
 		sidebar: [
 			{
-				title: '开发文档',
+				title: 'Readme',
 				children: [
 					'/Start/'
 				]
@@ -27,13 +27,15 @@ module.exports = {
 			{
 				title: 'Waifu-SR',
 				children: [
-					'/Super-Revolution/'
+					'/WaifuSR/',
+					'/WaifuSR/Models.md',
+					'/WaifuSR/Benchmark.md'
 				]
 			},
 			{
 				title: 'Waifu-SY',
 				children: [
-					'/Shi-Yun/'
+					'/WaifuSY/'
 				]
 			}
 		]
