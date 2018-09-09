@@ -45,7 +45,7 @@ rgbMatrixT = {{1.164, 0., 1.596}, {1.164, -0.392, -0.813}, {1.164, 2.017, 0.}};
 (*LapSRN*)
 WaifuLapSRN[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	{render},
-	If[
+	Quiet@If[
 		MissingQ[LapSRN = Ready[$Waifus["LapSRN2x", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
@@ -56,7 +56,7 @@ WaifuLapSRN[img_, zoom_ : 2, device_ : "GPU"] := Block[
 ];
 WaifuLapSRN2[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	{render},
-	If[
+	Quiet@If[
 		MissingQ[LapSRN2 = Ready[$Waifus["LapSRN4x", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
@@ -71,7 +71,7 @@ WaifuLapSRN2[img_, zoom_ : 2, device_ : "GPU"] := Block[
 (*RED30*)
 WaifuRED30[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	{upsample, ycbcr, channels, netResize, adjust},
-	If[
+	Quiet@If[
 		MissingQ[RED30 = Ready[$Waifus["RED30-SR", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
@@ -90,7 +90,7 @@ WaifuRED30[img_, zoom_ : 2, device_ : "GPU"] := Block[
 (*VDSR*)
 WaifuVDSR[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	{upsample, ycbcr, channels, netResize, adjust},
-	If[
+	Quiet@If[
 		MissingQ[VDSR = Ready[$Waifus["VDSR", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
@@ -109,7 +109,7 @@ WaifuVDSR[img_, zoom_ : 2, device_ : "GPU"] := Block[
 (*ByNet+*)
 WaifuByNet[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	{upsample, ycbcr, channels, netResize, adjust},
-	If[
+	Quiet@If[
 		MissingQ[ByNet = Ready[$Waifus["ByNet9", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
@@ -128,7 +128,7 @@ WaifuByNet[img_, zoom_ : 2, device_ : "GPU"] := Block[
 (*VGGSR*)
 WaifuVGGSR[img_, device_ : "GPU"] := Module[
 	{covImg, covNet, x, y},
-	If[
+	Quiet@If[
 		MissingQ[VGGSR = Ready[$Waifus["VGGSR", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
@@ -144,7 +144,7 @@ WaifuVGGSR[img_, device_ : "GPU"] := Module[
 (*SESR*)
 WaifuSESR[img_, device_ : "GPU"] := Block[
 	{upsample, ycbcr, netResize, adjust},
-	If[
+	Quiet@If[
 		MissingQ[SESR = Ready[$Waifus["SESR", "Remote"]]],
 		Return[Missing[NotAvailable]]
 	];
