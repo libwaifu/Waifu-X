@@ -34,22 +34,38 @@ Begin["`WaifuSY`"];
 (*主体代码*)
 Version$WaifuSY = "V1.0";
 Updated$WaifuSY = "2018-08-27";
+
+
+(* ::Subsubsection:: *)
+(*Models*)
+$TangShiComplex = 10;
+Waifu`Models`Tang4::usage = "";
+Waifu`Models`Tang4 := Ready[$Waifus["Tang-4", "Remote"], Echo -> True];
+Waifu`Models`Tang5::usage = "";
+Waifu`Models`Tang5 := Ready[$Waifus["Tang-5", "Remote"], Echo -> True];
+Waifu`Models`Tang7::usage = "";
+Waifu`Models`Tang7 := Ready[$Waifus["Tang-7", "Remote"], Echo -> True];
+
+
+
 (* ::Subsubsection:: *)
 (*功能块 1*)
-$TangShiComplex = 10;
 WaifuTang[l_Integer : 5, len_Integer : 4] := Block[
 	{
 		net, choose, next, one, head, shi
 	},
-	Quiet@If[
-		Or @@ {
-			MissingQ[WaifuTang4 = Ready[$Waifus["Tang-4", "Remote"], Echo -> True]],
-			MissingQ[WaifuTang5 = Ready[$Waifus["Tang-5", "Remote"], Echo -> True]],
-			MissingQ[WaifuTang7 = Ready[$Waifus["Tang-7", "Remote"], Echo -> True]]
-		},
+	If[Or @@ {
+		MissingQ[Waifu`Models`Tang4],
+		MissingQ[Waifu`Models`Tang5],
+		MissingQ[Waifu`Models`Tang7]
+	},
 		Return[Missing["NotAvailable"]]
 	];
-	net = NetStateObject@Switch[l, 7, WaifuTang7, 5, WaifuTang5, _, WaifuTang4];
+	net = NetStateObject@Switch[l,
+		7, Waifu`Models`WaifuTang7,
+		5, Waifu`Models`WaifuTang5,
+		_, Waifu`Models`WaifuTang4
+	];
 	choose[asc_, str_] := Block[
 		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
 		RandomChoice[Sqrt[Values@keys] -> Keys@keys]
@@ -62,7 +78,18 @@ WaifuTang[l_Integer : 5, len_Integer : 4] := Block[
 ];
 WaifuTang[l_Integer : 5, len_String] := Block[
 	{net, choose, next, one, shi},
-	net = NetStateObject@Switch[l, 7, WaifuTang7, 5, WaifuTang5, _, WaifuTang4];
+	If[Or @@ {
+		MissingQ[Waifu`Models`Tang4],
+		MissingQ[Waifu`Models`Tang5],
+		MissingQ[Waifu`Models`Tang7]
+	},
+		Return[Missing["NotAvailable"]]
+	];
+	net = NetStateObject@Switch[l,
+		7, Waifu`Models`WaifuTang7,
+		5, Waifu`Models`WaifuTang5,
+		_, Waifu`Models`WaifuTang4
+	];
 	choose[asc_, str_] := Block[
 		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
 		RandomChoice[Sqrt[Values@keys] -> Keys@keys]
@@ -72,14 +99,6 @@ WaifuTang[l_Integer : 5, len_String] := Block[
 	shi = one /@ Characters@len;
 	TableForm[Text /@ shi]
 ];
-(* ::Subsubsection:: *)
-(*Models*)
-Waifu`Models`WaifuTang4::usage = "";
-Waifu`Models`WaifuTang4 = WaifuTang4;
-Waifu`Models`WaifuTang5::usage = "";
-Waifu`Models`WaifuTang5 = WaifuTang5;
-Waifu`Models`WaifuTang7::usage = "";
-Waifu`Models`WaifuTang7 = WaifuTang7;
 (* ::Subsection::Closed:: *)
 (*附加设置*)
 SetAttributes[

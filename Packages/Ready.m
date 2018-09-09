@@ -23,20 +23,18 @@ Version$Ready = "V1.0";
 Updated$Ready = "2018-09-09";
 (* ::Subsubsection:: *)
 (*Functions*)
-Ready /: Set[x_, Ready[y__]] := SetReady[y, Symbol -> x];
+(*Ready /: Set[x_, Ready[y__]] := SetReady[y, Symbol -> x];*)
 (*Ready /: SetDelayed[x_, Ready[y__]] := SetReady[y, Symbol -> x];*)
 (*Message[NeuralNetworks`Private`NetModel`head::offline]*)
-SetAttributes[SetReady, {ReadProtected}];
-Options[SetReady] = {Symbol -> Null, Format -> True, Re -> 3, Echo -> False};
-SetReady[url_String, ops : OptionsPattern[]] := SetReady[url, URL2Local[url], ops];
-SetReady[url_String, local_String, ops : OptionsPattern[]] := Block[
-	{var, fmt, print},
-	{var, fmt, print} = OptionValue[{Symbol, Format, Echo}];
-	If[FileExistsQ@local, Return@CheckImport[SetReady[url, local, ops], var, local, fmt]];
-	CheckDirectory@DirectoryName[local];
-	CheckInternet;
+Options[Ready] = {Format -> True, Re -> 3, Echo -> False};
+Ready[url_String, ops : OptionsPattern[]] := Ready[url, URL2Local[url], ops];
+Ready[url_String, local_String, ops : OptionsPattern[]] := Block[
+	{fmt, print},
+	{fmt, print} = OptionValue[{Format, Echo}];
+	If[FileExistsQ@local, Return@CheckImport[Ready[url, local, ops], local, fmt]];
+	CheckDirectory@local;CheckInternet;
 	SetReadyDownload[url, local, Echo -> print];
-	Return[Missing["NotAvailable", "Retry Later"]]
+	Return@Missing["NotAvailable"]
 ];
 URL2Local[url_String, OptionsPattern[]] := Block[
 	{file = Last@StringSplit[url, "/"]},
@@ -49,7 +47,7 @@ CheckInternet := If[
 	Return[$Failed]
 ];
 SetAttributes[CheckImport, HoldFirst];
-CheckImport[var_, tv_, f_, fmt_] := tv = var = If[TrueQ@fmt, Import[f], Import[f, fmt]];
+CheckImport[var_, f_, fmt_] := var = If[TrueQ@fmt, Import[f], Import[f, fmt]];
 Options[SetReadyDownload] = {Echo -> True};
 SetReadyDownload[url_String, local_String, OptionsPattern[]] := Module[
 	{manifest},
