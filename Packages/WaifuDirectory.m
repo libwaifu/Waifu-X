@@ -43,27 +43,53 @@ $WaifuData = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "WaifuX"}];
 	Return[Missing[NotAvailable]]
 ];*)
 $Waifus = <|
-	"Waifu-VDSR" -> <|
+	"VGGSR" -> <|
+		"Project"-> "WaifuSR",
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-VGGSR.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-VGGSR.WMLF"}]
+	|>,
+	"VDSR" -> <|
+		"Project"-> "WaifuSR",
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-VDSR.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-VDSR.WMLF"}]
 	|>,
-	"Waifu-LapSRN2x" -> <|
+	"LapSRN2x" -> <|
+		"Project"-> "WaifuSR",
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2x.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN2x.WMLF"}]
 	|>,
-	"Waifu-LapSRN2x" -> <|
-		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2x.WMLF",
-		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN2x.WMLF"}]
+	"LapSRN4x" -> <|
+		"Project"-> "WaifuSR",
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN4x.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN4x.WMLF"}]
+	|>,
+	"SESR" -> <|
+		"Project"-> "WaifuSR",
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-SESR.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-SESR.WMLF"}]
+	|>,
+	"ByNet9" -> <|
+		"Project"-> "WaifuSR",
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-ByNet9.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-ByNet9.WMLF"}]
+	|>,
+	"RED30-SR" -> <|
+		"Project"-> "WaifuSR",
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-RED30.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-RED30.WMLF"}]
 	|>,
 	"Tang-4" -> <|
+		"Project"-> "WaifuSY",
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-4.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-4.WMLF"}]
 	|>,
 	"Tang-5" -> <|
+		"Project"-> "WaifuSY",
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-5.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-5.WMLF"}]
 	|>,
 	"Tang-7" -> <|
+		"Project"-> "WaifuSY",
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-7.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-7.WMLF"}]
 	|>
