@@ -1,7 +1,5 @@
 Waifu::usage = "";
 Begin["`Private`"];
-PackageLoadPacletDependency["Ready`"];
-PackageExtendContextPath[{"Ready`"}];
 If[$CharacterEncoding =!= "UTF-8",
 	$CharacterEncoding = "UTF-8";
 	Print[{

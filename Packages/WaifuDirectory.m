@@ -45,11 +45,27 @@ $WaifuData = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "WaifuX"}];
 $Waifus = <|
 	"Waifu-VDSR" -> <|
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-VDSR.WMLF",
-		"Local" -> FileNameJoin[{$WaifuData, "Models", "Waifu-VDSR.WMLF"}]
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-VDSR.WMLF"}]
 	|>,
-	"Waifu-LapSRN" -> <|
-		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2.WMLF",
-		"Local" -> FileNameJoin[{$WaifuData, "Models", "Waifu-LapSRN2.WMLF"}]
+	"Waifu-LapSRN2x" -> <|
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2x.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN2x.WMLF"}]
+	|>,
+	"Waifu-LapSRN2x" -> <|
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2x.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN2x.WMLF"}]
+	|>,
+	"Tang-4" -> <|
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-4.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-4.WMLF"}]
+	|>,
+	"Tang-5" -> <|
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-5.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-5.WMLF"}]
+	|>,
+	"Tang-7" -> <|
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-7.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-7.WMLF"}]
 	|>
 |>;
 (* ::Subsection::Closed:: *)

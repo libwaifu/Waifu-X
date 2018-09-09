@@ -22,12 +22,13 @@
 (*这里应该填这个函数的介绍*)
 (* ::Section:: *)
 (*函数说明*)
-ExampleFunction::usage = "这里应该填这个函数的说明,如果要换行用\"\\r\"\r就像这样";
+WaifuTang::usage = "生成古诗";
+$TangShiComplex::usage = "生成古诗用字的生僻程度";
 (* ::Section:: *)
 (*程序包正体*)
 (* ::Subsection::Closed:: *)
 (*主设置*)
-WaifuSY::usage = "诗云";
+WaifuSY::usage = "";
 Begin["`WaifuSY`"];
 (* ::Subsection::Closed:: *)
 (*主体代码*)
@@ -35,19 +36,54 @@ Version$WaifuSY = "V1.0";
 Updated$WaifuSY = "2018-08-27";
 (* ::Subsubsection:: *)
 (*功能块 1*)
-ExampleFunction[1] = "我就是个示例函数,什么功能都没有";
-
-
-
+$TangShiComplex = 10;
+WaifuTang[l_Integer : 5, len_Integer : 4] := Block[
+	{
+		net, choose, next, one, head, shi
+	},
+	Quiet@If[
+		Or @@ {
+			MissingQ[WaifuTang4 = Ready[$Waifus["Tang-4", "Remote"], Echo -> True]],
+			MissingQ[WaifuTang5 = Ready[$Waifus["Tang-5", "Remote"], Echo -> True]],
+			MissingQ[WaifuTang7 = Ready[$Waifus["Tang-7", "Remote"], Echo -> True]]
+		},
+		Return[Missing["NotAvailable"]]
+	];
+	net = NetStateObject@Switch[l, 7, WaifuTang7, 5, WaifuTang5, _, WaifuTang4];
+	choose[asc_, str_] := Block[
+		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
+		RandomChoice[Sqrt[Values@keys] -> Keys@keys]
+	];
+	next[str_] := choose[net[str, {"TopProbabilities", $TangShiComplex + 4}], str];
+	one[char_] := Nest[StringJoin[#, next[#]]&, Nest[StringJoin[#, next[#]]&, char, l - 1] <> "，", l] <> "。";
+	head = choose[net["_", {"TopProbabilities", 10$TangShiComplex + 100}], "_"];
+	shi = NestList[one@next[StringTake[#, {-1 - l, -2}] <> "，"]&, one@head, len - 1];
+	TableForm[Text /@ shi]
+];
+WaifuTang[l_Integer : 5, len_String] := Block[
+	{net, choose, next, one, shi},
+	net = NetStateObject@Switch[l, 7, WaifuTang7, 5, WaifuTang5, _, WaifuTang4];
+	choose[asc_, str_] := Block[
+		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
+		RandomChoice[Sqrt[Values@keys] -> Keys@keys]
+	];
+	next[str_] := choose[net[str, {"TopProbabilities", $TangShiComplex + 4}], str];
+	one[char_] := Nest[StringJoin[#, next[#]]&, Nest[StringJoin[#, next[#]]&, char, l - 1] <> "，", l] <> "。";
+	shi = one /@ Characters@len;
+	TableForm[Text /@ shi]
+];
 (* ::Subsubsection:: *)
-(*功能块 2*)
-ExampleFunction[2] = "我就是个示例函数,什么功能都没有";
-
-
+(*Models*)
+Waifu`Models`WaifuTang4::usage = "";
+Waifu`Models`WaifuTang4 = WaifuTang4;
+Waifu`Models`WaifuTang5::usage = "";
+Waifu`Models`WaifuTang5 = WaifuTang5;
+Waifu`Models`WaifuTang7::usage = "";
+Waifu`Models`WaifuTang7 = WaifuTang7;
 (* ::Subsection::Closed:: *)
 (*附加设置*)
 SetAttributes[
-	{ },
+	{WaifuTang},
 	{Protected, ReadProtected}
-]
+];
 End[]
