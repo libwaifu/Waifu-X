@@ -11,7 +11,7 @@ module.exports = {
 		['link', {rel: 'icon', href: '/favicon.png'}]
 	],
 	themeConfig: {
-		repo: 'Moe-Net/WaifuX',
+		repo: 'Moe-Net/Waifu-X',
 		editLinks: true,
 		docsDir: 'docs',
 		markdown: {

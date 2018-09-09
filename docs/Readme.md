@@ -8,13 +8,13 @@ footer: MPL2.0 Licensed | Copyright © 2018-2018 GalAster
 ### 一键安装
 
 ```haskell
-PacletInstall["WaifuX","Site"->"http://math.owo.site/"]
+PacletInstall["Waifu","Site"->"http://m.vers.site/"]
 ```
 
 当然更新和卸载也是一键搞定
 
 ```haskell
-PacletUpdate["Waifu","Site"->"http://math.owo.site/"]
+PacletUpdate["Waifu","Site"->"http://m.vers.site/"]
 PacletUninstall["Waifu"]
 ```
 
