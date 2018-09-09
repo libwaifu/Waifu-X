@@ -24,7 +24,7 @@
 
 #### 测试代码:
 
-```Mathematica
+```haskell
 test=Import["https://i.loli.net/2018/09/09/5b94b9b6e2574.png"];
 WaifuSR[test,2]
 ImageResize[test,Scaled[2]]

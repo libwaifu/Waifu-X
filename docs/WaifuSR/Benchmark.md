@@ -1,6 +1,6 @@
 # BenchMark
 
-成绩来自: https://github.com/Moe-Net/Waifu-SR/blob/8fee83987e2e2d28aff08c23e618c85b0e66841d/Models/Readme.md
+成绩来自: [Moe-Net/Waifu-SR/Models/Readme.md](https://github.com/Moe-Net/Waifu-SR/blob/8fee83987e2e2d28aff08c23e618c85b0e66841d/Models/Readme.md)
 
 ## WaifuSR
 
