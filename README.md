@@ -1,8 +1,13 @@
 # Waifu:X
 
-## Install
+[![Mathematica](https://img.shields.io/badge/Mathematica-%3E%3D11.3.5-brightgreen.svg)](https://www.wolfram.com/mathematica/)
+[![Release Vision](https://img.shields.io/badge/release-v0.2.x-ff69b4.svg)](https://github.com/Moe-Net/Waifu-X/releases)
+[![Repo Size](https://img.shields.io/github/repo-size/Moe-Net/Waifu-X.svg)](https://github.com/Moe-Net/Waifu-X.git)
+[![Code Size](https://img.shields.io/github/languages/code-size/Moe-Net/Waifu-X.svg)](https://github.com/Moe-Net/Waifu-X.git)
 
-一键安装:
+## Install +1s
+
+One-Key Installation:
 
 ```Mathematica
 PacletInstall@"https://github.com/Moe-Net/Waifu-X/releases/download/v0.1.x/Waifu-0.1.x.paclet"
@@ -33,7 +38,16 @@ git clone https://github.com/Moe-Net/Waifu-X.git --depth 1 --branch master
         - WaifuLoader.m
 ```
 
+## Patchouli♂Go
 
+Use a notebook, starting with the following codes!
+
+```
+<<Waifu`
+??Waifu`*
+```
+
+Find APIs in web documentation: https://waifu-x.netlify.com/WaifuSR
 
 ## License
 
