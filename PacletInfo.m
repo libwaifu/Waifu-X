@@ -1,6 +1,6 @@
 Paclet[
 	Name -> "Waifu",
-	Version -> "0.1.8",
+	Version -> "0.2.5",
 	Extensions -> {
 		{
 			"Kernel",
