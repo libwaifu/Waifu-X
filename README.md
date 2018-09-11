@@ -44,7 +44,7 @@ git clone https://github.com/Moe-Net/Waifu-X.git Waifu --depth 1 --branch master
 
 Use a notebook, starting with the following codes!
 
-```
+```Mathematica
 <<Waifu`
 ??Waifu`*
 ```
