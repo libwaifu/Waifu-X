@@ -31,6 +31,11 @@ module.exports = {
 					'/WaifuSR/Models.md',
 					'/WaifuSR/Benchmark.md'
 				]
+			}, {
+				title: 'Waifu-IR',
+				children: [
+					'/WaifuIR/'
+				]
 			},
 			{
 				title: 'Waifu-SY',

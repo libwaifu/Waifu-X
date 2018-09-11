@@ -22,12 +22,12 @@
 (*这里应该填这个函数的介绍*)
 (* ::Section:: *)
 (*函数说明*)
-ExampleFunction::usage = "这里应该填这个函数的说明,如果要换行用\"\\r\"\r就像这样";
+WaifuDenoise::usage = "";
 (* ::Section:: *)
 (*程序包正体*)
 (* ::Subsection::Closed:: *)
 (*主设置*)
-ExNumber::usage = "程序包的说明,这里抄一遍";
+WaifuIR::usage = "程序包的说明,这里抄一遍";
 Begin["`WaifuIR`"];
 (* ::Subsection::Closed:: *)
 (*主体代码*)
@@ -35,11 +35,12 @@ Version$WaifuIR = "V1.0";
 Updated$WaifuIR = "2018-09-11";
 (* ::Subsubsection:: *)
 (*功能块 1*)
-Waifu`Models`DnCNN := Ready[$Waifus["Waifu-DnCNN-S15", "Remote"]];
-Waifu`Models`DnCNN2 := Ready[$Waifus["Waifu-DnCNN-S50", "Remote"]];
-Waifu`Models`DnCNN3 := Ready[$Waifus["Waifu-DnCNN-B", "Remote"]];
+Waifu`Models`DnCNN := Ready[$Waifus["DnCNN-S15", "Remote"]];
+Waifu`Models`DnCNN2 := Ready[$Waifus["DnCNN-S50", "Remote"]];
+Waifu`Models`DnCNN3 := Ready[$Waifus["DnCNN-B", "Remote"]];
 WaifuDnCNN[img_, device_ : "GPU"] := Block[
 	{getN, getNoise, noise},
+	If[MissingQ[Waifu`Models`DnCNN], Return[Missing["NotAvailable"]]];
 	getN = NetReplacePart[Waifu`Models`DnCNN, {
 		"Input" -> NetEncoder[{"Image", ImageDimensions@img, ColorSpace -> "Grayscale"}],
 		"Output" -> NetDecoder[{"Image", ColorSpace -> "Grayscale"}]
@@ -50,6 +51,7 @@ WaifuDnCNN[img_, device_ : "GPU"] := Block[
 ];
 WaifuDnCNN2[img_, device_ : "GPU"] := Block[
 	{getN, getNoise, noise},
+	If[MissingQ[Waifu`Models`DnCNN2], Return[Missing["NotAvailable"]]];
 	getN = NetReplacePart[Waifu`Models`DnCNN2, {
 		"Input" -> NetEncoder[{"Image", ImageDimensions@img, ColorSpace -> "Grayscale"}],
 		"Output" -> NetDecoder[{"Image", ColorSpace -> "Grayscale"}]
@@ -60,6 +62,7 @@ WaifuDnCNN2[img_, device_ : "GPU"] := Block[
 ];
 WaifuDnCNN3[img_, device_ : "GPU"] := Block[
 	{getN, getNoise, noise},
+	If[MissingQ[Waifu`Models`DnCNN3], Return[Missing["NotAvailable"]]];
 	getN = NetReplacePart[Waifu`Models`DnCNN3, {
 		"Input" -> NetEncoder[{"Image", ImageDimensions@img, ColorSpace -> "Grayscale"}],
 		"Output" -> NetDecoder[{"Image", ColorSpace -> "Grayscale"}]
@@ -68,11 +71,27 @@ WaifuDnCNN3[img_, device_ : "GPU"] := Block[
 	noise = ColorCombine[getNoise /@ ColorSeparate[img]];
 	img - noise
 ];
+Options[WaifuDenoise] = {Method -> "Soft", TargetDevice -> "GPU"};
+WaifuDenoise[img_Image, OptionsPattern[]] := Block[
+	{ },
+	If[Or @@ {
+		MissingQ[Waifu`Models`DnCNN],
+		MissingQ[Waifu`Models`DnCNN2],
+		MissingQ[Waifu`Models`DnCNN3]
+	},
+		Return[Missing["NotAvailable"]]
+	];
+	Switch[OptionValue[Method],
+		"Soft", WaifuDnCNN[img, OptionValue[TargetDevice]],
+		"Hard", WaifuDnCNN2[img, OptionValue[TargetDevice]],
+		_, WaifuDnCNN3[img, OptionValue[TargetDevice]]
+	]
+];
 
 (* ::Subsection::Closed:: *)
 (*附加设置*)
 SetAttributes[
-	{ },
+	{WaifuDenoise},
 	{Protected, ReadProtected}
-]
+];
 End[]

@@ -19,15 +19,21 @@ Ready::usage = "Ready for File!";
 (* ::Subsection::Closed:: *)
 (*Main*)
 Begin["`Ready`"];
-Version$Ready = "V1.0";
-Updated$Ready = "2018-09-09";
+Version$Ready = "V1.1.2";
+Updated$Ready = "2018-09-11";
 (* ::Subsubsection:: *)
 (*Functions*)
 (*Ready /: Set[x_, Ready[y__]] := SetReady[y, Symbol -> x];*)
 (*Ready /: SetDelayed[x_, Ready[y__]] := SetReady[y, Symbol -> x];*)
 (*Message[NeuralNetworks`Private`NetModel`head::offline]*)
-Options[Ready] = {Format -> True, Re -> 3, Echo -> False};
-Ready[url_String, ops : OptionsPattern[]] := Ready[url, URL2Local[url], ops];
+Options[Ready] = {Format -> True, Echo -> False};
+Ready[url_String, ops : OptionsPattern[]] := Block[
+	{fmt, print},
+	{fmt, print} = OptionValue[{Format, Echo}];
+	If[FileExistsQ@URL2Local[url], Return@CheckImport[Ready[url, ops], URL2Local[url], fmt]];
+	SetReadyDownload[url, URL2Local[url], Echo -> print];
+	Return@Missing["NotAvailable"]
+];
 Ready[url_String, local_String, ops : OptionsPattern[]] := Block[
 	{fmt, print},
 	{fmt, print} = OptionValue[{Format, Echo}];
@@ -38,7 +44,7 @@ Ready[url_String, local_String, ops : OptionsPattern[]] := Block[
 ];
 URL2Local[url_String, OptionsPattern[]] := Block[
 	{file = Last@StringSplit[url, "/"]},
-	FileNameJoin[{$UserBaseDirectory, "ApplicationData", "Waifu", file}]
+	FileNameJoin[{$UserBaseDirectory, "ApplicationData", "WaifuX", file}]
 ];
 CheckDirectory[dir_] := If[!DirectoryQ@dir, CreateDirectory[dir]];
 CheckInternet := If[
@@ -61,7 +67,8 @@ downloadProgress[manifest_][event_] := manifest = <|manifest, event["Task"] -> e
 downloadFinished[manifest_][event_] := manifest = {};
 Options[downloadStart] = {Symbol -> Null};
 downloadStart[manifest_][src_String, dest_String, OptionsPattern[]] := URLDownloadSubmit[
-	src, dest,
+	HTTPRequest[src, FollowRedirects -> True],
+	CreateFile@dest,
 	HandlerFunctions -> <|
 		"ConnectionFailed" -> connectionFailed[manifest],
 		"CookiesReceived" -> cookiesReceived[manifest],
