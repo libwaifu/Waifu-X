@@ -24,33 +24,22 @@
 
 
 (* ::Text:: *)
-(*这里应该填这个函数的介绍*)
-ExampleFunction::usage = "这里应该填这个函数的说明,如果要换行用\"\\r\"\r就像这样";
-
-
-WaifuDenoise::usage = "";
-(* ::Section:: *)
-(*程序包正体*)
-(* ::Subsection::Closed:: *)
-(*主设置*)
-WaifuIR::usage = "程序包的说明,这里抄一遍";
+(*WaifuSR*)
+Waifu`WaifuSR::usage = "";
+Waifu`WaifuSR = Waifu`WaifuSR`WaifuSR$API;
 
 
 
-WaifuTang::usage = "生成古诗";
-$TangShiComplex::usage = "生成古诗用字的生僻程度";
-(* ::Section:: *)
-(*程序包正体*)
-(* ::Subsection::Closed:: *)
-(*主设置*)
-WaifuSY::usage = "";
+(* ::Text:: *)
+(*WaifuIR*)
+Waifu`WaifuDenoise::usage = "";
+Waifu`WaifuDenoise = Waifu`WaifuIR`WaifuDenoise$API;
 
 
-(* ::Package:: *)
-(* ::Title:: *)
-(*WaifuSR(WaifuSR)*)
-WaifuSR::usage = "";
-(* ::Section:: *)
-(*程序包正体*)
-(* ::Subsection::Closed:: *)
-(*主设置*)
+
+(* ::Text:: *)
+(*WaifuSY*)
+Waifu`WaifuTang::usage = "生成古诗";
+Waifu`WaifuTang = Waifu`WaifuSY`WaifuTang$API;
+Waifu`$TangShiComplex::usage = "生成古诗用字的生僻程度";
+(*Global Constant*)

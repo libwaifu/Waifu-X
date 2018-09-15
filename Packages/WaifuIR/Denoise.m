@@ -1,14 +1,26 @@
 (* ::Package:: *)
 (* ::Subchapter:: *)
-(*版本号*)
+(*Version*)
 Version$WaifuIR = "V1.0";
 Updated$WaifuIR = "2018-09-11";
 
 
 (* ::Subchapter:: *)
-(*DnCNN*)
-Options[WaifuDenoise] = {Method -> "Soft", TargetDevice -> "GPU"};
-WaifuDenoise[img_Image, OptionsPattern[]] := Block[
+(*WaifuDenoise*)
+(* ::Subsubsection:: *)
+(*Models*)
+Waifu`Models`DnCNN::usage = "";
+Waifu`Models`DnCNN := Ready[$Waifus["DnCNN-S15", "Remote"], Echo -> True];
+Waifu`Models`DnCNN::usage = "";
+Waifu`Models`DnCNN2 := Ready[$Waifus["DnCNN-S50", "Remote"], Echo -> True];
+Waifu`Models`DnCNN::usage = "";
+Waifu`Models`DnCNN3 := Ready[$Waifus["DnCNN-B", "Remote"], Echo -> True];
+
+
+(* ::Subsubsection:: *)
+(*Main*)
+Options[WaifuDenoise$API] = {Method -> "Soft", TargetDevice -> "GPU"};
+WaifuDenoise$API[img_Image, OptionsPattern[]] := Block[
 	{ },
 	If[Or @@ {
 		MissingQ[Waifu`Models`DnCNN],
@@ -25,11 +37,8 @@ WaifuDenoise[img_Image, OptionsPattern[]] := Block[
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*DnCNN*)
-Waifu`Models`DnCNN := Ready[$Waifus["DnCNN-S15", "Remote"]];
-Waifu`Models`DnCNN2 := Ready[$Waifus["DnCNN-S50", "Remote"]];
-Waifu`Models`DnCNN3 := Ready[$Waifus["DnCNN-B", "Remote"]];
 WaifuDnCNN[img_, device_ : "GPU"] := Block[
 	{getN, getNoise, noise},
 	If[MissingQ[Waifu`Models`DnCNN], Return[Missing["NotAvailable"]]];
@@ -66,8 +75,8 @@ WaifuDnCNN3[img_, device_ : "GPU"] := Block[
 
 
 (* ::Subchapter:: *)
-(*附加设置*)
+(*Additional*)
 SetAttributes[
-	{WaifuDenoise},
+	{WaifuDenoise$API},
 	{Protected, ReadProtected}
 ]

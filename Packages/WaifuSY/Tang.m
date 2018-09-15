@@ -1,13 +1,15 @@
-
-(* ::Subsection::Closed:: *)
-(*主体代码*)
+(* ::Package:: *)
+(* ::Subchapter:: *)
+(*Version*)
 Version$WaifuSY = "V1.0";
 Updated$WaifuSY = "2018-08-27";
 
 
+(* ::Subchapter:: *)
+(*WaifuTang*)
 (* ::Subsubsection:: *)
 (*Models*)
-$TangShiComplex = 10;
+Waifu`$TangShiComplex = 10;
 Waifu`Models`Tang4::usage = "";
 Waifu`Models`Tang4 := Ready[$Waifus["Tang-4", "Remote"], Echo -> True];
 Waifu`Models`Tang5::usage = "";
@@ -16,10 +18,9 @@ Waifu`Models`Tang7::usage = "";
 Waifu`Models`Tang7 := Ready[$Waifus["Tang-7", "Remote"], Echo -> True];
 
 
-
 (* ::Subsubsection:: *)
-(*功能块 1*)
-WaifuTang[l_Integer : 5, len_Integer : 4] := Block[
+(*Main*)
+WaifuTang$API[l_Integer : 5, len_Integer : 4] := Block[
 	{
 		net, choose, next, one, head, shi
 	},
@@ -39,13 +40,13 @@ WaifuTang[l_Integer : 5, len_Integer : 4] := Block[
 		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
 		RandomChoice[Sqrt[Values@keys] -> Keys@keys]
 	];
-	next[str_] := choose[net[str, {"TopProbabilities", $TangShiComplex + 4}], str];
+	next[str_] := choose[net[str, {"TopProbabilities", Waifu`$TangShiComplex + 4}], str];
 	one[char_] := Nest[StringJoin[#, next[#]]&, Nest[StringJoin[#, next[#]]&, char, l - 1] <> "，", l] <> "。";
-	head = choose[net["_", {"TopProbabilities", 10$TangShiComplex + 100}], "_"];
+	head = choose[net["_", {"TopProbabilities", 10 Waifu`$TangShiComplex + 100}], "_"];
 	shi = NestList[one@next[StringTake[#, {-1 - l, -2}] <> "，"]&, one@head, len - 1];
 	TableForm[Text /@ shi]
 ];
-WaifuTang[l_Integer : 5, len_String] := Block[
+WaifuTang$API[l_Integer : 5, len_String] := Block[
 	{net, choose, next, one, shi},
 	If[Or @@ {
 		MissingQ[Waifu`Models`Tang4],
@@ -63,15 +64,16 @@ WaifuTang[l_Integer : 5, len_String] := Block[
 		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
 		RandomChoice[Sqrt[Values@keys] -> Keys@keys]
 	];
-	next[str_] := choose[net[str, {"TopProbabilities", $TangShiComplex + 4}], str];
+	next[str_] := choose[net[str, {"TopProbabilities", Waifu`$TangShiComplex + 4}], str];
 	one[char_] := Nest[StringJoin[#, next[#]]&, Nest[StringJoin[#, next[#]]&, char, l - 1] <> "，", l] <> "。";
 	shi = one /@ Characters@len;
 	TableForm[Text /@ shi]
 ];
+
+
 (* ::Subsection::Closed:: *)
-(*附加设置*)
+(*Additional*)
 SetAttributes[
-	{WaifuTang},
+	{WaifuTang$API},
 	{Protected, ReadProtected}
-];
-End[]
+]
