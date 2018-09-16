@@ -42,69 +42,72 @@ $WaifuData = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "WaifuX"}];
 	MissingQ[var = Ready[$Waifus[name, "Remote"], $Waifus[name, "Local"]]],
 	Return[Missing[NotAvailable]]
 ];*)
+UrlSR = Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"];
+UrlIR = Hyperlink["WaifuIR", "https://github.com/Moe-Net/Waifu-IR"];
+UrlSY = Hyperlink["WaifuSY", "https://github.com/Moe-Net/Waifu-SY"];
 $Waifus = <|
 	"VGGSR" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-VGGSR.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-VGGSR.WMLF"}]
 	|>,
 	"VDSR" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-VDSR.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-VDSR.WMLF"}]
 	|>,
 	"LapSRN2x" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN2x.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN2x.WMLF"}]
 	|>,
 	"LapSRN4x" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-LapSRN4x.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-LapSRN4x.WMLF"}]
 	|>,
 	"SESR" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-SESR.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-SESR.WMLF"}]
 	|>,
 	"ByNet9" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-ByNet9.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-ByNet9.WMLF"}]
 	|>,
 	"RED30-SR" -> <|
-		"Project" -> Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"],
+		"Project" -> UrlSR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-RED30.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-RED30.WMLF"}]
 	|>,
 	"DnCNN-S15" -> <|
-		"Project" -> Hyperlink["WaifuIR", "https://github.com/Moe-Net/Waifu-IR"],
+		"Project" -> UrlIR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-DnCNN-S15.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DnCNN-S15.WMLF"}]
 	|>,
 	"DnCNN-S50" -> <|
-		"Project" -> Hyperlink["WaifuIR", "https://github.com/Moe-Net/Waifu-IR"],
+		"Project" -> UrlIR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-DnCNN-S50.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DnCNN-S50.WMLF"}]
 	|>,
 	"DnCNN-B" -> <|
-		"Project" -> Hyperlink["WaifuIR", "https://github.com/Moe-Net/Waifu-IR"],
+		"Project" -> UrlIR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-DnCNN-B.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DnCNN-B.WMLF"}]
 	|>,
 	"Tang-4" -> <|
-		"Project" -> Hyperlink["WaifuSY", "https://github.com/Moe-Net/Waifu-SY"],
+		"Project" -> UrlSY,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-4.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-4.WMLF"}]
 	|>,
 	"Tang-5" -> <|
-		"Project" -> Hyperlink["WaifuSY", "https://github.com/Moe-Net/Waifu-SY"],
+		"Project" -> UrlSY,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-5.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-5.WMLF"}]
 	|>,
 	"Tang-7" -> <|
-		"Project" -> Hyperlink["WaifuSY", "https://github.com/Moe-Net/Waifu-SY"],
+		"Project" -> UrlSY,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-Tang-7.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Tang-7.WMLF"}]
 	|>

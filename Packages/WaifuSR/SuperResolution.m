@@ -33,7 +33,7 @@ WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 		Return[Missing["NotAvailable"]]
 	];
 	Piecewise[{
-		{Return[$Failed], zoom <= 1},
+		{ImageResize[img, Scaled[zoom]], 0 < zoom <= 1},
 		{ImageResize[WaifuLapSRN[img, device], zoom ImageDimensions[i]], 1 < zoom <= 2},
 		{ImageResize[WaifuLapSRN2[img, device], zoom ImageDimensions[i]], 2 < zoom <= 4},
 		{ImageResize[img, Scaled[zoom], Resampling -> {"OMOMS", 7}], 4 < zoom}
@@ -43,15 +43,15 @@ WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 
 (* ::Subsubsection::Closed:: *)
 (*Traditional*)
-WaifuNearset[img_, zoom_] := ImageResize[#, {512, 512}, Resampling -> "Nearest"] ;
-WaifuLinear[img_, zoom_] := ImageResize[#, {512, 512}, Resampling -> "Linear"] ;
-WaifuCubic[img_, zoom_] := ImageResize[#, {512, 512}, Resampling -> "Cubic"] ;
-WaifuOMOMS[img_, zoom_] := ImageResize[#, {512, 512}, Resampling -> {"OMOMS", 7}] ;
+WaifuNearset[img_, zoom_] := ImageResize[img, Scaled[zoom], Resampling -> "Nearest"] ;
+WaifuLinear[img_, zoom_] := ImageResize[img, Scaled[zoom], Resampling -> "Linear"] ;
+WaifuCubic[img_, zoom_] := ImageResize[img, Scaled[zoom], Resampling -> "Cubic"] ;
+WaifuOMOMS[img_, zoom_] := ImageResize[img, Scaled[zoom], Resampling -> {"OMOMS", 7}] ;
 
 
 (* ::Subsubsection::Closed:: *)
 (*LapSRN*)
-WaifuLapSRN[img_, zoom_ : 2, device_ : "GPU"] := Block[
+WaifuLapSRN[img_, device_ : "GPU"] := Block[
 	{render},
 	If[MissingQ[Waifu`Models`LapSRN], Return[Missing["NotAvailable"]]];
 	render[channel_] := Image[NetReplacePart[Waifu`Models`LapSRN, {
@@ -59,7 +59,7 @@ WaifuLapSRN[img_, zoom_ : 2, device_ : "GPU"] := Block[
 	}][channel, TargetDevice -> device]];
 	ColorCombine[render /@ ColorSeparate[img]]
 ];
-WaifuLapSRN2[img_, zoom_ : 2, device_ : "GPU"] := Block[
+WaifuLapSRN2[img_, device_ : "GPU"] := Block[
 	{render},
 	If[MissingQ[Waifu`Models`LapSRN2], Return[Missing["NotAvailable"]]];
 	render[channel_] := Image[NetReplacePart[Waifu`Models`LapSRN2, {

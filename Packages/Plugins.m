@@ -22,12 +22,10 @@
 (*Registry*)
 
 
-
 (* ::Text:: *)
 (*WaifuSR*)
 Waifu`WaifuSR::usage = "";
 Waifu`WaifuSR = Waifu`WaifuSR`WaifuSR$API;
-
 
 
 (* ::Text:: *)
@@ -36,10 +34,9 @@ Waifu`WaifuDenoise::usage = "";
 Waifu`WaifuDenoise = Waifu`WaifuIR`WaifuDenoise$API;
 
 
-
 (* ::Text:: *)
 (*WaifuSY*)
 Waifu`WaifuTang::usage = "生成古诗";
 Waifu`WaifuTang = Waifu`WaifuSY`WaifuTang$API;
 Waifu`$TangShiComplex::usage = "生成古诗用字的生僻程度";
-(*Global Constant*)
+(* Global Constant *)
