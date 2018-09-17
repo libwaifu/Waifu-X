@@ -21,18 +21,16 @@ Waifu`Models`DnCNN3 := Ready[$Waifus["DnCNN-B", "Remote"], Echo -> True];
 (*Main*)
 Options[WaifuDenoise$API] = {Method -> "Soft", TargetDevice -> "GPU"};
 WaifuDenoise$API[img_Image, OptionsPattern[]] := Block[
-	{ },
-	If[Or @@ {
-		MissingQ[Waifu`Models`DnCNN],
-		MissingQ[Waifu`Models`DnCNN2],
-		MissingQ[Waifu`Models`DnCNN3]
-	},
-		Return[Missing["NotAvailable"]]
-	];
-	Switch[OptionValue[Method],
+	{catch},
+	catch = Switch[OptionValue[Method],
 		"Soft", WaifuDnCNN[img, OptionValue[TargetDevice]],
 		"Hard", WaifuDnCNN2[img, OptionValue[TargetDevice]],
 		_, WaifuDnCNN3[img, OptionValue[TargetDevice]]
+	];
+	If[
+		MissingQ[catch],
+		Return[Missing["NotAvailable"]],
+		Return[catch]
 	]
 ];
 

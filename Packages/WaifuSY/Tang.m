@@ -32,9 +32,9 @@ WaifuTang$API[l_Integer : 5, len_Integer : 4] := Block[
 		Return[Missing["NotAvailable"]]
 	];
 	net = NetStateObject@Switch[l,
-		7, Waifu`Models`WaifuTang7,
-		5, Waifu`Models`WaifuTang5,
-		_, Waifu`Models`WaifuTang4
+		7, Waifu`Models`Tang4,
+		5, Waifu`Models`Tang5,
+		_, Waifu`Models`Tang4
 	];
 	choose[asc_, str_] := Block[
 		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},
@@ -56,9 +56,9 @@ WaifuTang$API[l_Integer : 5, len_String] := Block[
 		Return[Missing["NotAvailable"]]
 	];
 	net = NetStateObject@Switch[l,
-		7, Waifu`Models`WaifuTang7,
-		5, Waifu`Models`WaifuTang5,
-		_, Waifu`Models`WaifuTang4
+		7, Waifu`Models`Tang7,
+		5, Waifu`Models`Tang5,
+		_, Waifu`Models`Tang4
 	];
 	choose[asc_, str_] := Block[
 		{keys = Rest@KeyDrop[asc, Append[{"，", "。", "？", _}, StringTake[str, -1]]]},

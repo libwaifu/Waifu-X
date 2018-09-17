@@ -35,6 +35,12 @@ Waifu`WaifuDenoise = Waifu`WaifuIR`WaifuDenoise$API;
 
 
 (* ::Text:: *)
+(*WaifuCU*)
+Waifu`WaifuName::usage = "";
+Waifu`WaifuName = Waifu`WaifuCU`WaifuName$API;
+
+
+(* ::Text:: *)
 (*WaifuSY*)
 Waifu`WaifuTang::usage = "生成古诗";
 Waifu`WaifuTang = Waifu`WaifuSY`WaifuTang$API;

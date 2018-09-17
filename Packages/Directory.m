@@ -44,6 +44,7 @@ $WaifuData = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "WaifuX"}];
 ];*)
 UrlSR = Hyperlink["WaifuSR", "https://github.com/Moe-Net/Waifu-SR"];
 UrlIR = Hyperlink["WaifuIR", "https://github.com/Moe-Net/Waifu-IR"];
+UrlCU = Hyperlink["WaifuSY", "https://github.com/Moe-Net/Waifu-CU"];
 UrlSY = Hyperlink["WaifuSY", "https://github.com/Moe-Net/Waifu-SY"];
 $Waifus = <|
 	"VGGSR" -> <|
@@ -95,6 +96,11 @@ $Waifus = <|
 		"Project" -> UrlIR,
 		"Remote" -> "https://m.vers.site/NetModel/Waifu-DnCNN-B.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DnCNN-B.WMLF"}]
+	|>,
+	"Resnet50" -> <|
+		"Project" -> UrlCU,
+		"Remote" -> "https://m.vers.site/NetModel/Waifu-Resnet50.WMLF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Resnet50.WMLF"}]
 	|>,
 	"Tang-4" -> <|
 		"Project" -> UrlSY,

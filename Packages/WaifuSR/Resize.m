@@ -24,20 +24,25 @@ Options[WaifuSR$API] = {TargetDevice -> "GPU"};
 WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 	{
 		device = OptionValue[TargetDevice],
-		img = ColorConvert[RemoveAlphaChannel@i, "RGB"]
+		img = ColorConvert[RemoveAlphaChannel@i, "RGB"],
+		catch
 	},
-	If[Or @@ {
-		MissingQ[Waifu`Models`LapSRN],
-		MissingQ[Waifu`Models`LapSRN2]
-	},
+	catch = Which[
+		1 < zoom <= 2, WaifuLapSRN[img, device],
+		2 < zoom <= 4, WaifuLapSRN2[img, device],
+		True, img
+	];
+	If[
+		MissingQ[catch],
 		Return[Missing["NotAvailable"]]
 	];
-	Piecewise[{
-		{ImageResize[img, Scaled[zoom]], 0 < zoom <= 1},
-		{ImageResize[WaifuLapSRN[img, device], zoom ImageDimensions[i]], 1 < zoom <= 2},
-		{ImageResize[WaifuLapSRN2[img, device], zoom ImageDimensions[i]], 2 < zoom <= 4},
-		{ImageResize[img, Scaled[zoom], Resampling -> {"OMOMS", 7}], 4 < zoom}
-	}]
+	Which[
+		1 < zoom <= 2, ImageResize[catch, zoom ImageDimensions[i]],
+		zoom == 2, catch,
+		2 < zoom <= 4, ImageResize[catch, zoom ImageDimensions[i]],
+		zoom == 4, catch,
+		True, ImageResize[catch, Scaled[zoom], Resampling -> {"OMOMS", 7}]
+	]
 ];
 
 

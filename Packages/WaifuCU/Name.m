@@ -1,8 +1,8 @@
 (* ::Package:: *)
 (* ::Subchapter:: *)
-(*WaifuDenoise*)
+(*WaifuName*)
 (* ::Text:: *)
-(* $Updated = "2018-09-11"; *)
+(* $Updated = "2018-09-16"; *)
 
 
 (* ::Subsubsection:: *)
@@ -13,20 +13,16 @@ Waifu`Models`Resnet := Ready[$Waifus["Resnet50", "Remote"]];
 
 (* ::Subsubsection:: *)
 (*Main*)
-Options[WaifuDenoise$API] = {Method -> "Soft", TargetDevice -> "GPU"};
-WaifuDenoise$API[img_Image, OptionsPattern[]] := Block[
-	{ },
-	If[Or @@ {
-		MissingQ[Waifu`Models`DnCNN],
-		MissingQ[Waifu`Models`DnCNN2],
-		MissingQ[Waifu`Models`DnCNN3]
-	},
-		Return[Missing["NotAvailable"]]
+Options[WaifuName$API] = {Method -> "Soft", TargetDevice -> "GPU"};
+WaifuName$API[img_Image, OptionsPattern[]] := Block[
+	{catch},
+	catch = Switch[OptionValue[Method],
+		_, WaifuResnet[img, OptionValue[TargetDevice]]
 	];
-	Switch[OptionValue[Method],
-		"Soft", WaifuDnCNN[img, OptionValue[TargetDevice]],
-		"Hard", WaifuDnCNN2[img, OptionValue[TargetDevice]],
-		_, WaifuDnCNN3[img, OptionValue[TargetDevice]]
+	If[
+		MissingQ[catch],
+		Return[Missing["NotAvailable"]],
+		Return[catch]
 	]
 ];
 
@@ -35,6 +31,10 @@ WaifuDenoise$API[img_Image, OptionsPattern[]] := Block[
 (*Resnet50*)
 WaifuResnet[img_, device_ : "GPU"] := Block[
 	{top},
+	If[
+		MissingQ[Waifu`Models`Resnet],
+		Return[Missing["NotAvailable"]]
+	];
 	top = Select[Waifu`Models`Resnet[img, "Probabilities", TargetDevice -> "GPU"], # > 0.001&];
 	Dataset[ToString@Floor[100#, 0.01] <> "%"& /@ Take[ReverseSort@top, UpTo[10]]]
 ];
@@ -43,6 +43,6 @@ WaifuResnet[img_, device_ : "GPU"] := Block[
 (* ::Subchapter:: *)
 (*Additional*)
 SetAttributes[
-	{WaifuDenoise$API},
+	{WaifuName$API},
 	{Protected, ReadProtected}
 ]
