@@ -82,6 +82,29 @@ $Waifus = <|
 		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-RED30.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-RED30.WMLF"}]
 	|>,
+	"SRResNet2x" -> <|
+		"Project" -> UrlSR,
+		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-SRResNet2x.WXF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-SRResNet2x.WXF"}]
+	|>,
+	"SRResNet3x" -> <|
+		"Project" -> UrlSR,
+		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-SRResNet3x.WXF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-SRResNet2x.WXF"}]
+	|>,
+	"SRResNet4x" -> <|
+		"Project" -> UrlSR,
+		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-SRResNet4x.WXF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-SRResNet2x.WXF"}]
+	|>,
+	"SRResNet8x" -> <|
+		"Project" -> UrlSR,
+		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-SRResNet8x.WXF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-SRResNet2x.WXF"}]
+	|>,
+	
+	
+	
 	"DnCNN-S15" -> <|
 		"Project" -> UrlIR,
 		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-DnCNN-S15.WMLF",
@@ -97,11 +120,27 @@ $Waifus = <|
 		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-DnCNN-B.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DnCNN-B.WMLF"}]
 	|>,
+	"DRRN9" -> <|
+		"Project" -> UrlIR,
+		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-DRRN9.WXF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DRRN9.WXF"}]
+	|>,
+	"DRRN25" -> <|
+		"Project" -> UrlIR,
+		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-DRRN25.WXF",
+		"Local" -> FileNameJoin[{$WaifuData, "Waifu-DRRN25.WXF"}]
+	|>,
+	
+	
+	
 	"Resnet50" -> <|
 		"Project" -> UrlCU,
 		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-Resnet50.WMLF",
 		"Local" -> FileNameJoin[{$WaifuData, "Waifu-Resnet50.WMLF"}]
 	|>,
+	
+	
+	
 	"Tang-4" -> <|
 		"Project" -> UrlSY,
 		"Remote" -> "https://m.vers.site/Resources/WaifuX/Waifu-Tang-4.WMLF",
