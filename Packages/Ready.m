@@ -99,10 +99,40 @@ downloadVisualize[manifest_] := Print@Dynamic@Which[
 		#FractionComplete
 	]&[First@Values[manifest]]
 ];
+(* ::Subsubsection:: *)
+(*Geass$MXNet*)
+Options[Waifu`Models`$MXNet] = {TargetDevice -> "GPU"};
+Waifu`Models`$MXNet[dm_Association, OptionsPattern[]] := Block[
+	{exe, device, port},
+	device = NeuralNetworks`Private`ParseContext @OptionValue[TargetDevice];
+	exe = NeuralNetworks`Private`ToNetExecutor[
+		NetPlan[<|
+			"Symbol" -> dm["Graph"],
+			"WeightArrays" -> dm["Weight"],
+			"FixedArrays" -> dm["Fixed"],
+			"BatchedArrayDims" -> <|dm["<<"] -> {BatchSize, Sequence @@ Dimensions[#]}|>,
+			"ZeroArrays" -> {},
+			"AuxilliaryArrays" -> dm["Auxilliary"],
+			"Inputs" -> <|"Input" -> dm["<<"]|>,
+			"Outputs" -> <|"Output" -> dm[">>"]|>,
+			"InputStates" -> <||>,
+			"OutputStates" -> <||>,
+			"Metrics" -> <||>,
+			"LogicalWeights" -> <||>,
+			"ReshapeTemplate" -> None,
+			"NodeCount" -> dm["nodes"]
+		|>],
+		1, "Context" -> device, "ArrayCaching" -> True
+	];
+	port = ToExpression@StringDelete[ToString[exe["Arrays", "Inputs", "Input"]], {"NDArray[", "]"}];
+	MXNetLink`NDArray`PackagePrivate`mxWritePackedArrayToNDArrayChecked[#, port];
+	NetExecutorForward[exe, False];
+	exe["Arrays", "Outputs", "Output"] // NDArrayGetFlat
+]&;
 (* ::Subsection::Closed:: *)
 (*Additional*)
 End[];
 SetAttributes[
-	{Ready},
+	{Ready, Waifu`Models`$MXNet},
 	{ReadProtected}
 ]
