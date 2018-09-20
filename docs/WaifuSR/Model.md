@@ -42,7 +42,7 @@ WaifuVGGSR[img, "GPU"]
 
 ### Model
 
-::: dangerous EXPERIMENTAL
+::: danger EXPERIMENTAL
 
 实验级, 即便无法使用也不要提交 issue.
 

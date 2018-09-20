@@ -28,13 +28,21 @@ module.exports = {
 				title: 'Waifu-SR',
 				children: [
 					'/WaifuSR/',
-					'/WaifuSR/Models.md',
+					'/WaifuSR/Model.md',
 					'/WaifuSR/Benchmark.md'
 				]
-			}, {
+			},
+			{
 				title: 'Waifu-IR',
 				children: [
-					'/WaifuIR/'
+					'/WaifuIR/',
+					'/WaifuIR/Model.md'
+				]
+			},
+			{
+				title: 'Waifu-CU',
+				children: [
+					'/WaifuCU/'
 				]
 			},
 			{
