@@ -1,10 +1,10 @@
 (* ::Package:: *)
 (* ::Subchapter:: *)
-(*Version*)
-Version$WaifuSR = "V1.0";
-Updated$WaifuSR = "2018-08-21";
-(* ::Subchapter:: *)
 (*WaifuSR*)
+(* ::Text:: *)
+(*$Updated = "2018-09-19";*)
+
+
 (* ::Subsubsection:: *)
 (*Models*)
 Waifu`Models`LapSRN := Ready[$Waifus["LapSRN2x", "Remote"]];
@@ -14,10 +14,15 @@ Waifu`Models`VDSR := Ready[$Waifus["VDSR", "Remote"]];
 Waifu`Models`SESR := Ready[$Waifus["SESR", "Remote"]];
 Waifu`Models`VGGSR := Ready[$Waifus["VGGSR", "Remote"]];
 Waifu`Models`ByNet := Ready[$Waifus["ByNet9", "Remote"]];
+SRResNet := Ready[$Waifus["SRResNet2x", "Remote"]];
+SRResNet2 := Ready[$Waifus["SRResNet3x", "Remote"]];
+SRResNet3 := Ready[$Waifus["SRResNet4x", "Remote"]];
+SRResNet4 := Ready[$Waifus["SRResNet8x", "Remote"]];
 
 
 (* ::Subsubsection:: *)
 (*Main*)
+Waifu`WaifuSR`Resize$Loaded = True;
 rgbMatrix = {{0.257, 0.504, 0.098}, {-0.148, -0.291, 0.439}, {0.439, -0.368, -0.071}};
 rgbMatrixT = {{1.164, 0., 1.596}, {1.164, -0.392, -0.813}, {1.164, 2.017, 0.}};
 Options[WaifuSR$API] = {TargetDevice -> "GPU"};
@@ -28,6 +33,7 @@ WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 		catch
 	},
 	catch = Which[
+		zoom = 1, Waifu`WaifuSharpen[img, device],
 		1 < zoom <= 2, WaifuLapSRN[img, device],
 		2 < zoom <= 4, WaifuLapSRN2[img, device],
 		True, img
@@ -37,11 +43,12 @@ WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 		Return[Missing["NotAvailable"]]
 	];
 	Which[
+		zoom = 1, catch,
 		1 < zoom <= 2, ImageResize[catch, zoom ImageDimensions[i]],
 		zoom == 2, catch,
 		2 < zoom <= 4, ImageResize[catch, zoom ImageDimensions[i]],
 		zoom == 4, catch,
-		True, ImageResize[catch, Scaled[zoom], Resampling -> {"OMOMS", 7}]
+		True, Return[$Failed]
 	]
 ];
 
@@ -147,6 +154,42 @@ WaifuSESR[img_, device_ : "GPU"] := Block[
 	}];
 	adjust = ColorCombine[{Image@netResize[#1, TargetDevice -> device], #2, #3}]&;
 	ImageApply[rgbMatrixT.# + {-0.874, 0.532, -1.086}&, adjust @@ ColorSeparate[ycbcr]]
+];
+
+
+(* ::Subsubsection::Closed:: *)
+(*SRResNet*)
+WaifuSRResNet[img_, device_ : "GPU"] := Block[
+	{ne, nd, geass},
+	If[MissingQ[SRResNet], Return@Missing["NotAvailable"]];
+	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
+	nd = NetDecoder[{"Image"}];
+	GeassSRResNet := Waifu`Models`$MXNet[SRResNet, TargetDevice -> device];
+	nd@GeassSRResNet[ne@img]
+];
+WaifuSRResNet2[img_, device_ : "GPU"] := Block[
+	{ne, nd, geass},
+	If[MissingQ[SRResNet2], Return@Missing["NotAvailable"]];
+	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
+	nd = NetDecoder[{"Image"}];
+	GeassSRResNet2 := Waifu`Models`$MXNet[SRResNet2, TargetDevice -> device];
+	nd@GeassSRResNet2[ne@img]
+];
+WaifuSRResNet3[img_, device_ : "GPU"] := Block[
+	{ne, nd, geass},
+	If[MissingQ[SRResNet3], Return@Missing["NotAvailable"]];
+	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
+	nd = NetDecoder[{"Image"}];
+	GeassSRResNet3 := Waifu`Models`$MXNet[SRResNet3, TargetDevice -> device];
+	nd@GeassSRResNet3[ne@img]
+];
+WaifuSRResNet4[img_, device_ : "GPU"] := Block[
+	{ne, nd, geass},
+	If[MissingQ[SRResNet4], Return@Missing["NotAvailable"]];
+	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
+	nd = NetDecoder[{"Image"}];
+	GeassSRResNet3 := Waifu`Models`$MXNet[SRResNet3, TargetDevice -> device];
+	nd@GeassSRResNet3[ne@img]
 ];
 
 

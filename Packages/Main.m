@@ -1,7 +1,7 @@
 Waifu::usage = "";
 Begin["`Private`"];
-PackageLoadPacletDependency["NeuralNetworks`"];
-PackageLoadPacletDependency["MXNetLink`"];
+(*PackageLoadPacletDependency["NeuralNetworks`"];*)
+(*PackageLoadPacletDependency["MXNetLink`"];*)
 PackageExtendContextPath[
 	{
 		"Developer`",

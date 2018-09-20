@@ -106,8 +106,8 @@ Waifu`Models`$MXNet[dm_Association, OptionsPattern[]] := Block[
 	{exe, device, port},
 	device = NeuralNetworks`Private`ParseContext @OptionValue[TargetDevice];
 	exe = NeuralNetworks`Private`ToNetExecutor[
-		NetPlan[<|
-			"Symbol" -> dm["Graph"],
+		NeuralNetworks`NetPlan[<|
+			"Symbol" -> MXNetLink`MXSymbolFromJSON@dm["Graph"],
 			"WeightArrays" -> dm["Weight"],
 			"FixedArrays" -> dm["Fixed"],
 			"BatchedArrayDims" -> <|dm["<<"] -> {BatchSize, Sequence @@ Dimensions[#]}|>,
@@ -126,8 +126,8 @@ Waifu`Models`$MXNet[dm_Association, OptionsPattern[]] := Block[
 	];
 	port = ToExpression@StringDelete[ToString[exe["Arrays", "Inputs", "Input"]], {"NDArray[", "]"}];
 	MXNetLink`NDArray`PackagePrivate`mxWritePackedArrayToNDArrayChecked[#, port];
-	NetExecutorForward[exe, False];
-	exe["Arrays", "Outputs", "Output"] // NDArrayGetFlat
+	NeuralNetworks`NetExecutorForward[exe, False];
+	exe["Arrays", "Outputs", "Output"] // MXNetLink`NDArrayGetFlat
 ]&;
 (* ::Subsection::Closed:: *)
 (*Additional*)

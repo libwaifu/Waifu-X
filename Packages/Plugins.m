@@ -32,6 +32,8 @@ Waifu`WaifuSR = Waifu`WaifuSR`WaifuSR$API;
 (*WaifuIR*)
 Waifu`WaifuDenoise::usage = "";
 Waifu`WaifuDenoise = Waifu`WaifuIR`WaifuDenoise$API;
+Waifu`WaifuSharpen::usage = "";
+Waifu`WaifuSharpen = Waifu`WaifuIR`WaifuSharpen$API;
 
 
 (* ::Text:: *)
