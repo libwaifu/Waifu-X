@@ -7,21 +7,20 @@
 ::: warning Attention
 注意, 所有模块都是惰性加载的
 
-因此入口函数 `WaifuSR` 必须被调用过, 否则以下函数都无法被找到.
+接口函数 ``Waifu`WaifuSR`WaifuSR$API[]`` 必须被调用过至少一次, 否则以下函数都无法被找到.
 :::
 
 ## VGGSR
 
 ### Model
 
-```haskell
-Waifu`Models`VGGSR
-```
+``Waifu`Models`VGGSR``
 
 ### Function
 
 ```haskell
-WaifuVGGSR[img_, device_ : "GPU"]
+Waifu`WaifuSR`WaifuSR$API[];
+WaifuVGGSR[img, "GPU"]
 ```
 
 ## VDSR
@@ -33,3 +32,35 @@ WaifuVGGSR[img_, device_ : "GPU"]
 ### Function
 
 ## LapSRN
+
+
+
+
+## SRResNet
+
+残差神经网络在超分辨率上的运用.
+
+### Model
+
+::: dangerous EXPERIMENTAL
+
+实验级, 即便无法使用也不要提交 issue.
+
+- Cite: [Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network](https://arxiv.org/pdf/1609.04802v5.pdf)
+
+:::
+
+### Function
+
+```haskell
+Needs["MXNetLink`"];
+Waifu`WaifuSR`WaifuSR$API[];
+"2x 放大倍率";
+Waifu`WaifuSR`WaifuSRResNet[img, "GPU"]
+"3x 放大倍率";
+Waifu`WaifuSR`WaifuSRResNet[img, "GPU"]
+"4x 放大倍率";
+Waifu`WaifuSR`WaifuSRResNet[img, "GPU"]
+"8x 放大倍率";
+Waifu`WaifuSR`WaifuSRResNet[img, "GPU"]
+```

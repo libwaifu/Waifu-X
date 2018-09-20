@@ -33,7 +33,7 @@ WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 		catch
 	},
 	catch = Which[
-		zoom = 1, Waifu`WaifuSharpen[img, device],
+		zoom == 1, Waifu`WaifuSharpen[img, device],
 		1 < zoom <= 2, WaifuLapSRN[img, device],
 		2 < zoom <= 4, WaifuLapSRN2[img, device],
 		True, img
@@ -43,7 +43,7 @@ WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 		Return[Missing["NotAvailable"]]
 	];
 	Which[
-		zoom = 1, catch,
+		zoom == 1, catch,
 		1 < zoom <= 2, ImageResize[catch, zoom ImageDimensions[i]],
 		zoom == 2, catch,
 		2 < zoom <= 4, ImageResize[catch, zoom ImageDimensions[i]],

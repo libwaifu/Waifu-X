@@ -8,7 +8,9 @@
 ::: tip WaifuSR[i,zoom:2]
 - i 类型为 `Image`, 表示要放大的图片
 - zoom 的类型为 `Real`, 表示要放大的倍数
-	- 1 < zoom < 4
+	- 1 < zoom <= 4
+	- 若 zoom = 1, 等价于 WaifuSharpen 的 `"Soft"` 模式.
+	- 超出该范围的请在 Models 中寻找合适的模型.
 :::
 
 ### 可选项
@@ -23,6 +25,8 @@
 注意, `WaifuSR[i,4]` 不等价于 `WaifuSR[WaifuSR[i,2],2]`
 
 前者无论是速度还是得分都比后者要好一点.
+
+
 
 ### 标准示例
 
