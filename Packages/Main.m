@@ -2,14 +2,14 @@ Waifu::usage = "";
 Begin["`Private`"];
 (*PackageLoadPacletDependency["NeuralNetworks`"];*)
 (*PackageLoadPacletDependency["MXNetLink`"];*)
-PackageExtendContextPath[
-	{
-		"Developer`",
-		"MXNetLink`",
-		"NeuralNetworks`",
-		"GeneralUtilities`"
-	}
-];
+(*PackageExtendContextPath[*)
+	(*{*)
+		(*"Developer`",*)
+		(*"MXNetLink`",*)
+		(*"NeuralNetworks`",*)
+		(*"GeneralUtilities`"*)
+	(*}*)
+(*];*)
 If[$CharacterEncoding =!= "UTF-8",
 	$CharacterEncoding = "UTF-8";
 	Print[{

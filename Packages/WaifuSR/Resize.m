@@ -22,10 +22,10 @@ SRResNet4 := Ready[$Waifus["SRResNet8x", "Remote"]];
 
 (* ::Subsubsection:: *)
 (*Main*)
-Waifu`WaifuSR`Resize$Loaded = True;
 rgbMatrix = {{0.257, 0.504, 0.098}, {-0.148, -0.291, 0.439}, {0.439, -0.368, -0.071}};
 rgbMatrixT = {{1.164, 0., 1.596}, {1.164, -0.392, -0.813}, {1.164, 2.017, 0.}};
 Options[WaifuSR$API] = {TargetDevice -> "GPU"};
+WaifuSR$API[___] := True;
 WaifuSR$API[i_Image, zoom_ : 2, OptionsPattern[]] := Block[
 	{
 		device = OptionValue[TargetDevice],
@@ -164,7 +164,7 @@ WaifuSRResNet[img_, device_ : "GPU"] := Block[
 	If[MissingQ[SRResNet], Return@Missing["NotAvailable"]];
 	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
 	nd = NetDecoder[{"Image"}];
-	GeassSRResNet := Waifu`Models`$MXNet[SRResNet, TargetDevice -> device];
+	GeassSRResNet := MXNetBoost[SRResNet, TargetDevice -> device];
 	nd@GeassSRResNet[ne@img]
 ];
 WaifuSRResNet2[img_, device_ : "GPU"] := Block[
@@ -172,7 +172,7 @@ WaifuSRResNet2[img_, device_ : "GPU"] := Block[
 	If[MissingQ[SRResNet2], Return@Missing["NotAvailable"]];
 	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
 	nd = NetDecoder[{"Image"}];
-	GeassSRResNet2 := Waifu`Models`$MXNet[SRResNet2, TargetDevice -> device];
+	GeassSRResNet2 := MXNetBoost[SRResNet2, TargetDevice -> device];
 	nd@GeassSRResNet2[ne@img]
 ];
 WaifuSRResNet3[img_, device_ : "GPU"] := Block[
@@ -180,7 +180,7 @@ WaifuSRResNet3[img_, device_ : "GPU"] := Block[
 	If[MissingQ[SRResNet3], Return@Missing["NotAvailable"]];
 	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
 	nd = NetDecoder[{"Image"}];
-	GeassSRResNet3 := Waifu`Models`$MXNet[SRResNet3, TargetDevice -> device];
+	GeassSRResNet3 := MXNetBoost[SRResNet3, TargetDevice -> device];
 	nd@GeassSRResNet3[ne@img]
 ];
 WaifuSRResNet4[img_, device_ : "GPU"] := Block[
@@ -188,7 +188,7 @@ WaifuSRResNet4[img_, device_ : "GPU"] := Block[
 	If[MissingQ[SRResNet4], Return@Missing["NotAvailable"]];
 	ne = NetEncoder[{"Image", Ceiling@ImageDimensions[img]}];
 	nd = NetDecoder[{"Image"}];
-	GeassSRResNet3 := Waifu`Models`$MXNet[SRResNet3, TargetDevice -> device];
+	GeassSRResNet3 := MXNetBoost[SRResNet3, TargetDevice -> device];
 	nd@GeassSRResNet3[ne@img]
 ];
 

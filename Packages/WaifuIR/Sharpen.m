@@ -37,7 +37,7 @@ WaifuDRRN[img_, device_ : "GPU"] := Block[
 	If[MissingQ[DRRN], Return[Missing["NotAvailable"]]];
 	ne = NetEncoder[{"Image", ImageDimensions@img, ColorSpace -> "Grayscale"}];
 	nd = NetDecoder[{"Image", ColorSpace -> "Grayscale"}];
-	geass = Waifu`Models`$MXNet[DRRN, TargetDevice -> device];
+	geass = MXNetBoost[DRRN, TargetDevice -> device];
 	ColorCombine[nd@geass[ne@#] & /@ ColorSeparate[img]]
 ];
 WaifuDRRN2[img_, device_ : "GPU"] := Block[
@@ -45,7 +45,7 @@ WaifuDRRN2[img_, device_ : "GPU"] := Block[
 	If[MissingQ[DRRN2], Return[Missing["NotAvailable"]]];
 	ne = NetEncoder[{"Image", ImageDimensions@img, ColorSpace -> "Grayscale"}];
 	nd = NetDecoder[{"Image", ColorSpace -> "Grayscale"}];
-	geass = Waifu`Models`$MXNet[DRRN2, TargetDevice -> device];
+	geass = MXNetBoost[DRRN2, TargetDevice -> device];
 	ColorCombine[nd@geass[ne@#] & /@ ColorSeparate[img]]
 ];
 

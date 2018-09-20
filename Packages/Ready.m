@@ -16,11 +16,12 @@
 (*Keep this License, thanks.*)
 Ready::offline = "The Wolfram Language is currently configured not to use the Internet. To allow Internet use, check the \"Allow the Wolfram Language to use the Internet\" box in the Help \[FilledRightTriangle] Internet Connectivity dialog.";
 Ready::usage = "Ready for File!";
+MXNetBoost::usage = "Speed up by MXNet!";
 (* ::Subsection::Closed:: *)
 (*Main*)
 Begin["`Ready`"];
-Version$Ready = "V1.1.2";
-Updated$Ready = "2018-09-11";
+Version$Ready = "V1.2.0";
+Updated$Ready = "2018-09-20";
 (* ::Subsubsection:: *)
 (*Functions*)
 (*Ready /: Set[x_, Ready[y__]] := SetReady[y, Symbol -> x];*)
@@ -100,39 +101,41 @@ downloadVisualize[manifest_] := Print@Dynamic@Which[
 	]&[First@Values[manifest]]
 ];
 (* ::Subsubsection:: *)
-(*Geass$MXNet*)
-Options[Waifu`Models`$MXNet] = {TargetDevice -> "GPU"};
-Waifu`Models`$MXNet[dm_Association, OptionsPattern[]] := Block[
+(*MXNetBoost*)
+Options[MXNetBoost] = {TargetDevice -> "GPU"};
+MXNetBoost[dm_Association, OptionsPattern[]] := Module[
 	{exe, device, port},
 	device = NeuralNetworks`Private`ParseContext @OptionValue[TargetDevice];
-	exe = NeuralNetworks`Private`ToNetExecutor[
-		NeuralNetworks`NetPlan[<|
-			"Symbol" -> MXNetLink`MXSymbolFromJSON@dm["Graph"],
-			"WeightArrays" -> dm["Weight"],
-			"FixedArrays" -> dm["Fixed"],
-			"BatchedArrayDims" -> <|dm["<<"] -> {BatchSize, Sequence @@ Dimensions[#]}|>,
-			"ZeroArrays" -> {},
-			"AuxilliaryArrays" -> dm["Auxilliary"],
-			"Inputs" -> <|"Input" -> dm["<<"]|>,
-			"Outputs" -> <|"Output" -> dm[">>"]|>,
-			"InputStates" -> <||>,
-			"OutputStates" -> <||>,
-			"Metrics" -> <||>,
-			"LogicalWeights" -> <||>,
-			"ReshapeTemplate" -> None,
-			"NodeCount" -> dm["nodes"]
-		|>],
-		1, "Context" -> device, "ArrayCaching" -> True
-	];
-	port = ToExpression@StringDelete[ToString[exe["Arrays", "Inputs", "Input"]], {"NDArray[", "]"}];
-	MXNetLink`NDArray`PackagePrivate`mxWritePackedArrayToNDArrayChecked[#, port];
-	NeuralNetworks`NetExecutorForward[exe, False];
-	exe["Arrays", "Outputs", "Output"] // MXNetLink`NDArrayGetFlat
-]&;
+	Function[input,
+		exe = NeuralNetworks`Private`ToNetExecutor[
+			NeuralNetworks`NetPlan[<|
+				"Symbol" -> MXNetLink`MXSymbolFromJSON@dm["Graph"],
+				"WeightArrays" -> dm["Weight"],
+				"FixedArrays" -> dm["Fixed"],
+				"BatchedArrayDims" -> <|dm["<<"] -> {BatchSize, Sequence @@ Dimensions[input]}|>,
+				"ZeroArrays" -> {},
+				"AuxilliaryArrays" -> dm["Auxilliary"],
+				"Inputs" -> <|"Input" -> dm["<<"]|>,
+				"Outputs" -> <|"Output" -> dm[">>"]|>,
+				"InputStates" -> <||>,
+				"OutputStates" -> <||>,
+				"Metrics" -> <||>,
+				"LogicalWeights" -> <||>,
+				"ReshapeTemplate" -> None,
+				"NodeCount" -> dm["nodes"]
+			|>],
+			1, "Context" -> device, "ArrayCaching" -> True
+		];
+		port = ToExpression@StringDelete[ToString[exe["Arrays", "Inputs", "Input"]], {"NDArray[", "]"}];
+		MXNetLink`NDArray`PackagePrivate`mxWritePackedArrayToNDArrayChecked[input, port];
+		NeuralNetworks`NetExecutorForward[exe, False];
+		exe["Arrays", "Outputs", "Output"] // MXNetLink`NDArrayGetFlat
+	]
+];
 (* ::Subsection::Closed:: *)
 (*Additional*)
 End[];
 SetAttributes[
-	{Ready, Waifu`Models`$MXNet},
+	{Ready, MXNetBoost},
 	{ReadProtected}
 ]
