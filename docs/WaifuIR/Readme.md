@@ -43,11 +43,11 @@ Import[]
 
 ### 可选项
 
-Method -> "Soft"
+- Method -> "Soft"
 	- 模式, 可选 "Soft"|"Hard"
 	- "Soft", 轻柔, 正常情况使用轻柔即可
 	- "Hard", 强力, 轻柔无法处理时使用
-TargetDevice -> "GPU"
+- TargetDevice -> "GPU"
 	- 运算单元, 可选 "CPU" 或者 "GPU"
 
 ### 返回值 `Image`

@@ -10,11 +10,11 @@ Updated$WaifuIR = "2018-09-11";
 (* ::Subsubsection:: *)
 (*Models*)
 Waifu`Models`DnCNN::usage = "";
-Waifu`Models`DnCNN := Ready[$Waifus["DnCNN-S15", "Remote"], Echo -> True];
+Waifu`Models`DnCNN := Ready[$Waifus["DnCNN-S15", "Remote"]];
 Waifu`Models`DnCNN::usage = "";
-Waifu`Models`DnCNN2 := Ready[$Waifus["DnCNN-S50", "Remote"], Echo -> True];
+Waifu`Models`DnCNN2 := Ready[$Waifus["DnCNN-S50", "Remote"]];
 Waifu`Models`DnCNN::usage = "";
-Waifu`Models`DnCNN3 := Ready[$Waifus["DnCNN-B", "Remote"], Echo -> True];
+Waifu`Models`DnCNN3 := Ready[$Waifus["DnCNN-B", "Remote"]];
 
 
 (* ::Subsubsection:: *)
